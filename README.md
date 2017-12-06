@@ -11,7 +11,7 @@ docker pull lacledeslan/gamesvr-hldms
 
 **Run Interactive Server**
 ```
-docker run -it --rm --net=host lacledeslan/gamesvr-hldms ./srcds_run -game hl1mp +map crossfire -insecure -maxplayers 8 -norestart +sv_lan 1
+docker run -it --rm --net=host lacledeslan/gamesvr-hldms ./srcds_run -game hl1mp +map crossfire -maxplayers 8 +sv_lan 1
 ```
 
 **Run Self Tests**
