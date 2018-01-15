@@ -1,6 +1,22 @@
 # escape=`
 FROM lacledeslan/steamcmd:linux as hldms-builder
 
+RUN echo "Downloading content from LL public ftp server" &&`
+        mkdir --parents /tmp/maps/ /output &&`
+        cd /tmp/maps/ &&`
+        wget -m `
+            ftp://llgameserverbot:6gDyfNJhm4UsraE5@raw.content.lacledeslan.net/hldms/maps/ `
+            -nH --no-verbose --cut-dirs 4 &&`
+        rm -f .listing &&`
+    echo "Decompressing files" &&`
+        bzip2 --decompress /tmp/maps/*.*.bz2 &&`
+        rm -f /tmp/maps/*.bz2 &&`
+    echo "Moving uncompressed files to destination" &&`
+        mkdir --parents /output/hl1mp/maps/ &&`
+        mv /tmp/maps/*.bsp /output/hl1mp/maps/ &&`
+    echo "Performing Cleanup" &&`
+        rm -rf /tmp/*/*;
+
 #=======================================================================
 FROM debian:stable-slim
 
@@ -36,6 +52,11 @@ COPY ./build-cache /app
 
 #Pull in SteamCMD
 COPY --from=hldms-builder /app /app/steamcmd
+
+# Copy files in from builder
+COPY --from=hldms-builder /output /app
+# Ownership shim until [github.com/moby/moby/pull/34263] makes it into Docker Cloud
+RUN chown -R HLDMS:root /app;
 
 ## Add in tests
 COPY ./ll-tests /app/ll-tests
