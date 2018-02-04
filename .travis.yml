@@ -12,8 +12,8 @@ services:
 
 script:
   - docker version
-  - docker build --no-cache --tag local/gamesvr-hldms --tag lacledeslan/gamesvr-hldms --build-arg BUILDNODE=TravisCI ./linux
-  - docker run -it --rm lacledeslan/gamesvr-hldms ./ll-tests/gamesvr-hldms.sh
+  - docker build --no-cache --tag lltest/gamesvr-hldms --tag lacledeslan/gamesvr-hldms --build-arg BUILDNODE=TravisCI ./linux
+  - docker run -it --rm lltest/gamesvr-hldms ./ll-tests/gamesvr-hldms.sh
 
 notifications:
   slack:
