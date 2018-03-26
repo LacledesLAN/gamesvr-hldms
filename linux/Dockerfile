@@ -1,6 +1,8 @@
 # escape=`
 FROM lacledeslan/steamcmd:linux as hldms-builder
 
+ARG ftpServer=content.lacledeslan.net
+
 # Copy cached build files (if any)
 COPY ./build-cache /output
 
@@ -13,7 +15,7 @@ RUN echo "Downloading content from LL public ftp server" &&`
         mkdir --parents /tmp/maps /output/maps &&`
         cd /tmp/maps/ &&`
         wget -m `
-            ftp://llgameserverbot:6gDyfNJhm4UsraE5@raw.content.lacledeslan.net/hldms/maps/ `
+            ftp://llgameserverbot:6gDyfNJhm4UsraE5@$ftpServer/hldms/maps/ `
             -nH --no-verbose --cut-dirs 4 &&`
         rm -f .listing &&`
     echo "Decompressing files" &&`
