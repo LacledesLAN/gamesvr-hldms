@@ -2,7 +2,7 @@
 
 #####################################################################################################
 ### CONFIG VARS #####################################################################################
-declare LLTEST_CMD="/app/srcds_run -game hl1mp +map crossfire -insecure -maxplayers 8 -norestart +sv_lan 1";
+declare LLTEST_CMD="/app/srcds_run -game hl1mp +map crossfire2017 -insecure -maxplayers 8 -norestart +sv_lan 1";
 declare LLTEST_NAME="gamesvr-hldms-$(date '+%H%M%S')";
 #####################################################################################################
 #####################################################################################################
@@ -151,7 +151,6 @@ should_lack 'Running the dedicated server as root' 'Server is not running under 
 should_lack 'steamclient.so: cannot open shared object file: No such file or directory' 'steamclient.so hack is working';
 should_lack 'WARNING: Failed to load 32-bit libtinfo.so.5 or libncurses.so.5.' 'dependency libtinfo.so.5 not missing';
 should_have 'server_srv.so loaded for "Half-Life 1"' 'srcds_run loaded Half-Life Deathmatch Source';
-should_have 'Server is hibernating' 'srcds_run succesfully hibernated';
 should_echo "sv_cheats" '"sv_cheats" = "0"';
 #####################################################################################################
 #####################################################################################################

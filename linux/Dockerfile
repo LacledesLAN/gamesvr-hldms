@@ -1,7 +1,7 @@
 # escape=`
 FROM lacledeslan/steamcmd:linux as hldms-builder
 
-ARG ftpServer=content.lacledeslan.net
+ARG contentServer=content.lacledeslan.net
 
 # Copy cached build files (if any)
 COPY ./build-cache /output
@@ -11,21 +11,15 @@ RUN mkdir --parents /output &&`
     /app/steamcmd.sh +login anonymous +force_install_dir /output +app_update 255470 validate +quit;
 
 # Download custom content
-RUN echo "Downloading content from LL public ftp server" &&`
-        mkdir --parents /tmp/maps /output/maps &&`
+RUN echo $'\n\nDownloading LL custom content from content server' &&`
+        mkdir --parents /tmp/maps/ &&`
         cd /tmp/maps/ &&`
-        wget -m `
-            ftp://llgameserverbot:6gDyfNJhm4UsraE5@$ftpServer/hldms/maps/ `
-            -nH --no-verbose --cut-dirs 4 &&`
-        rm -f .listing &&`
-    echo "Decompressing files" &&`
-        bzip2 --decompress /tmp/maps/*.*.bz2 &&`
-        rm -f /tmp/maps/*.bz2 &&`
+        wget -rkpN -l 1 -nH  --no-verbose --cut-dirs=3 -R "*.htm*" -e robots=off "http://"$contentServer"/fastDownloads/hldms/maps/" &&`
+    echo "Decompressing downloaded content" &&`
+        bzip2 --decompress /tmp/maps/*.bz2 &&`
     echo "Moving uncompressed files to destination" &&`
-        mkdir --parents /output/maps/ &&`
-        mv -n /tmp/maps/*.bsp /output/maps/ &&`
-    echo "Performing Cleanup" &&`
-        rm -rf /tmp/*/*;
+        mkdir /output/hl2mp/maps --parents &&`
+        mv -n *.bsp /output/hl2mp/maps;
 
 #=======================================================================
 FROM debian:stable-slim
