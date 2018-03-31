@@ -18,8 +18,8 @@ RUN echo $'\n\nDownloading LL custom content from content server' &&`
     echo "Decompressing downloaded content" &&`
         bzip2 --decompress /tmp/maps/*.bz2 &&`
     echo "Moving uncompressed files to destination" &&`
-        mkdir /output/hl2mp/maps --parents &&`
-        mv -n *.bsp /output/hl2mp/maps;
+        mkdir /output/maps/ --parents &&`
+        mv -n *.bsp /output/maps;
 
 #=======================================================================
 FROM debian:stable-slim
