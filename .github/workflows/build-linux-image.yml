@@ -4,9 +4,9 @@ on:
   schedule:
     - cron: '0 8 * * THU'
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
