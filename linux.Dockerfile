@@ -8,7 +8,7 @@ COPY ./dist/build-cache /output
 
 # Download Half-Life Deathmatch Source Dedicated Server
 RUN mkdir --parents /output &&`
-    /app/steamcmd.sh +login anonymous +force_install_dir /output +app_update 255470 validate +quit;
+    /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 255470 validate +quit;
 
 # Download custom content
 RUN echo $'\n\nDownloading LL custom content from content server' &&`
@@ -22,7 +22,7 @@ RUN echo $'\n\nDownloading LL custom content from content server' &&`
         mv -n *.bsp /output/hl1mp/maps;
 
 #=======================================================================
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 ARG BUILDNODE=unspecified
 ARG SOURCE_COMMIT=unspecified
