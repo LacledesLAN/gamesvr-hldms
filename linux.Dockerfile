@@ -1,10 +1,10 @@
 # escape=`
-FROM lacledeslan/steamcmd:linux as hldms-builder
+FROM lacledeslan/steamcmd as hldms-builder
 
 ARG contentServer=content.lacledeslan.net
 
 # Copy cached build files (if any)
-COPY ./dist/build-cache /output
+COPY ./dist/linux/build-cache /output
 
 # Download Half-Life Deathmatch Source Dedicated Server
 RUN mkdir --parents /output &&`
@@ -21,6 +21,8 @@ RUN echo $'\n\nDownloading LL custom content from content server' &&`
         mkdir /output/maps/ --parents &&`
         mv -n *.bsp /output/hl1mp/maps;
 
+COPY ./dist/linux/ll-tests /output/ll-tests
+
 #=======================================================================
 FROM debian:bookworm-slim
 
@@ -31,7 +33,7 @@ HEALTHCHECK NONE
 
 RUN dpkg --add-architecture i386 &&`
     apt-get update && apt-get install -y `
-        ca-certificates lib32gcc-s1 libncurses5:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
+        ca-certificates lib32gcc-s1 libsdl2-2.0-0:i386 libncurses5:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
     apt-get clean &&`
     echo "LC_ALL=en_US.UTF-8" >> /etc/environment &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
@@ -48,20 +50,16 @@ LABEL com.lacledeslan.build-node=$BUILDNODE `
 
 # Set up Enviornment
 RUN useradd --home /app --gid root --system HLDMS &&`
-    mkdir -p /app/ll-tests &&`
+    mkdir -p /app/.steam/sdk32 &&`
     chown HLDMS:root -R /app;
 
 COPY --chown=HLDMS:root --from=hldms-builder /output /app
 
-COPY --chown=HLDMS:root ./dist/ll-tests /app/ll-tests
-
-RUN chmod +x /app/ll-tests/*.sh;
+RUN chmod +x /app/ll-tests/*.sh &&`
+    echo $'\n\nLinking steamclient.so to prevent srcds_run errors' &&`
+        ln -s /app/bin/steamclient.so /app/.steam/sdk32/steamclient.so
 
 USER HLDMS
-
-RUN echo $'\n\nLinking steamclient.so to prevent srcds_run errors' &&`
-        mkdir --parents /app/.steam/sdk32 &&`
-        ln -s /app/bin/steamclient.so /app/.steam/sdk32/steamclient.so
 
 WORKDIR /app
 

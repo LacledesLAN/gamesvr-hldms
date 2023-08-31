@@ -153,6 +153,7 @@ should_lack 'WARNING: Failed to load 32-bit libtinfo.so.5 or libncurses.so.5.' '
 should_have 'server_srv.so loaded for "Half-Life 1"' 'srcds_run loaded Half-Life Deathmatch Source';
 should_echo "sv_cheats" '"sv_cheats" = "0"';
 should_lack 'map load failed:' 'Server was able to load custom map';
+should_lack "Warning: failed to init SDL thread priority manager: SDL not found" 'SDL thread priority manager is not missing';
 #####################################################################################################
 #####################################################################################################
 
