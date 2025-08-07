@@ -154,6 +154,8 @@ should_have 'server_srv.so loaded for "Half-Life 1"' 'srcds_run loaded Half-Life
 should_echo "sv_cheats" '"sv_cheats" = "0"';
 should_lack 'map load failed:' 'Server was able to load custom map';
 should_lack "Warning: failed to init SDL thread priority manager: SDL not found" 'SDL thread priority manager is not missing';
+should_have "'cfg/motd.txt' not found" "stock server doesn't have cfg/motd.txt";
+should_have "'cfg/motd_text.txt' not found" "stock server doesn't have cfg/motd_text.txt";
 #####################################################################################################
 #####################################################################################################
 
