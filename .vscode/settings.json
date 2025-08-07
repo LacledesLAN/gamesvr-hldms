@@ -3,6 +3,7 @@
         "buildnode",
         "deathmatch",
         "dockerhub",
+        "Dockerized",
         "freeplay",
         "gamesvr",
         "ghcr",
@@ -10,6 +11,9 @@
         "laclede's",
         "lacledeslan",
         "qemu",
+        "srcds",
+        "steamclient",
+        "steamcmd",
         "username",
         "xpost"
     ]

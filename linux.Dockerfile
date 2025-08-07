@@ -1,5 +1,5 @@
 # escape=`
-FROM lacledeslan/steamcmd as hldms-builder
+FROM lacledeslan/steamcmd AS hldms-builder
 
 ARG contentServer=content.lacledeslan.net
 
@@ -48,7 +48,7 @@ LABEL com.lacledeslan.build-node=$BUILDNODE `
       org.label-schema.description="Half-Life Deathmatch Source Dedicated Server" `
       org.label-schema.vcs-url="https://github.com/LacledesLAN/gamesvr-hldms"
 
-# Set up Enviornment
+# Set up Environment
 RUN useradd --home /app --gid root --system HLDMS &&`
     mkdir -p /app/.steam/sdk32 &&`
     chown HLDMS:root -R /app;

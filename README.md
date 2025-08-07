@@ -8,8 +8,7 @@ This repository is maintained by [Laclede's LAN](https://lacledeslan.com). Its c
 
 ## Linux
 
-[![](https://images.microbadger.com/badges/version/lacledeslan/gamesvr-hldms.svg)](https://microbadger.com/images/lacledeslan/gamesvr-hldms "Get your own version badge on microbadger.com")
-[![](https://images.microbadger.com/badges/image/lacledeslan/gamesvr-hldms.svg)](https://microbadger.com/images/lacledeslan/gamesvr-hldms "Get your own image badge on microbadger.com")
+[![linux/amd64](https://github.com/LacledesLAN/gamesvr-hldms/actions/workflows/build-linux-image.yml/badge.svg)](https://github.com/LacledesLAN/gamesvr-hldms/actions/workflows/build-linux-image.yml)
 
 ### Download
 
