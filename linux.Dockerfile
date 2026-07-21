@@ -1,6 +1,6 @@
 FROM lacledeslan/steamcmd AS hldms-builder
 
-ARG contentServer=content.lacledeslan.net
+ARG CONTENT_SERVER=content.lacledeslan.net
 
 # Copy cached build files (if any)
 COPY ./dist/linux/build-cache /output
@@ -10,11 +10,10 @@ RUN mkdir --parents /output && \
     /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 255470 validate +quit;
 
 # Download custom content
-
 RUN echo $'\n\nDownloading LL custom content from content server' && \
         mkdir --parents /tmp/maps/ && \
         cd /tmp/maps/ && \
-        wget -rkpN -l 1 -nH  --no-verbose --cut-dirs=3 -R "*.htm*" -e robots=off "http://"$contentServer"/fastDownloads/hldms/maps/" && \
+        wget -rkpN -l 1 -nH  --no-verbose --cut-dirs=3 -R "*.htm*" -e robots=off "http://"$CONTENT_SERVER"/fastDownloads/hldms/maps/" && \
     echo "Decompressing downloaded content" && \
         bzip2 --decompress /tmp/maps/*.bz2 && \
     echo "Moving uncompressed files to destination" && \
